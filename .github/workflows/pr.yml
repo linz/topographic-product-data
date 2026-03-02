@@ -4,4 +4,4 @@ on: pull_request
 
 jobs:
   call-kart:
-    uses: linz/topographic-system/packages/kart/pr-review.yml@f62732b792330a819cc78e631960070efb4f1ceb
+    uses: linz/topographic-system/.github/workflows/pr-review.yml@92393a1387a432c983fd2ee030c32c748967a846
