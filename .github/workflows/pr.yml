@@ -3,5 +3,5 @@ name: PR Review
 on: pull_request
 
 jobs:
-  call-kart:
-    uses: linz/topographic-system/.github/workflows/data-review.yml@92393a1387a432c983fd2ee030c32c748967a846
+  data-review:
+    uses: linz/topographic-system/.github/workflows/data-review.yml@master
