@@ -1,7 +1,8 @@
 name: PR Review
-
 on: pull_request
 
 jobs:
   data-review:
     uses: linz/topographic-system/.github/workflows/data-review.yml@master
+    with:
+      environment: nonprod
