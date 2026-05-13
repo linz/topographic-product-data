@@ -16,10 +16,11 @@ jobs:
     secrets: inherit
     
   visual-diff:
-    needs: deploy
-    uses: linz/topographic-system/.github/workflows/visual-diff.yml@master
+    needs: data-review
+    uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/visual-diff-with-data
     with:
       environment: nonprod
       map_version: "pr-138"
       project: ${{ needs.deploy.outputs.project_path }}
+      data: "$PWD/tmp/kart/prepare/"
     secrets: inherit
