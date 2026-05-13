@@ -20,6 +20,6 @@ jobs:
     uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/visual-diff-with-data
     with:
       environment: nonprod
-      map_version: master
+      map_version: latest
       project: s3://linz-topography-nonprod/qgis/nztopo50/latest/nztopo50.json
     secrets: inherit
