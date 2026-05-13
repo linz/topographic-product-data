@@ -22,5 +22,4 @@ jobs:
       environment: nonprod
       map_version: pr-138
       project: s3://linz-topography-nonprod/qgis/nztopo50/latest/nztopo50.json
-      data: 'tmp/kart/prepare/'
     secrets: inherit
