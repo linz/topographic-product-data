@@ -21,6 +21,6 @@ jobs:
     with:
       environment: nonprod
       map_version: "pr-138"
-      project: ${{ needs.deploy.outputs.project_path }}
+      project: "s3://linz-topography-nonprod/qgis/nztopo50/latest/nztopo50.json"
       data: "$PWD/tmp/kart/prepare/"
     secrets: inherit
