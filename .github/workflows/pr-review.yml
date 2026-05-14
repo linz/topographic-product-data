@@ -1,17 +1,9 @@
-name: pr
+name: pr-review
 on:
   pull_request:
   push:
     branches:
       - master
-      
-permissions:
-  id-token: write
-  contents: write
-  checks: write
-  pull-requests: write
-  issues: write
-  actions: read
 
 jobs:
   data-review:
@@ -24,8 +16,7 @@ jobs:
     secrets: inherit
 
   visual-diff:
-    needs: data-review
-    uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/visual-diff-with-data
+    needs: data-review    uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/visual-diff-with-data
     with:
       environment: nonprod
       map_version: pr-138
