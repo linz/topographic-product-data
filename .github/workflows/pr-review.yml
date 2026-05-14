@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   data-review:
     uses: linz/topographic-system/.github/workflows/data-review.yml@feat/visual-diff-with-data
