@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - master
-
-permissions:
-  contents: read
-  actions: read
+  permissions:
+    id-token: write
+    contents: read
+    pull-requests: write
 
 jobs:
   data-review:
