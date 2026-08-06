@@ -24,5 +24,4 @@ jobs:
       environment: nonprod
       map_version: latest
       project: https://d1jzh93b1t1cv.cloudfront.net/qgis/nztopo50/latest/nztopo50.json
-      data: ${{ format('s3://linz-topography-scratch-nonprod/github-cache/commit/{0}-{1}/', github.sha, github.run_id) }}
     secrets: inherit
