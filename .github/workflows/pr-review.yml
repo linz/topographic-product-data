@@ -13,8 +13,9 @@ jobs:
       environment: nonprod
       changed_datasets_only: false
       output: s3://linz-topography-nonprod/
-      strategy: ${{ (github.ref == 'refs/heads/master' && github.event_name == 'push') && 'latest,date' || format('commit={0}', github.sha) }}
-      data: ${{ format('s3://linz-topography-scratch-nonprod/github-cache/commit/{0}-{1}/', github.sha, github.run_id) }}
+      # `github.sha` is the ephemeral merge commit on pull requests, use the head commit instead
+      strategy: ${{ (github.ref == 'refs/heads/master' && github.event_name == 'push') && 'latest,date' || format('commit={0}', github.event.pull_request.head.sha || github.sha) }}
+      data: ${{ format('s3://linz-topography-scratch-nonprod/github-cache/commit/{0}-{1}/', github.event.pull_request.head.sha || github.sha, github.run_id) }}
     secrets: inherit
 
   visual-diff:
