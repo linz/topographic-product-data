@@ -21,8 +21,8 @@ jobs:
     uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/filter-catalog-gitsha
     with:
       environment: nonprod
-      map_version: git-0267435b6c6947f2ec4dc2bbd2d683724a9e1d6f
+      map_version: git-0b7e457710032690a0640042a77ebc84bb2ed0b3
       project: https://d1jzh93b1t1cv.cloudfront.net/qgis/nztopo50/latest/nztopo50.json
       catalog: https://d1jzh93b1t1cv.cloudfront.net/data/catalog.json
-      commit-sha: ${{ github.sha }}
+      strategy: 'commit=${{ github.sha }}'
     secrets: inherit
