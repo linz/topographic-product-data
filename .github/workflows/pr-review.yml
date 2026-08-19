@@ -6,23 +6,41 @@ on:
       - master
 
 jobs:
+  strategy:
+    runs-on: ubuntu-latest
+    outputs:
+      strategy: ${{ steps.init.outputs.strategy }}
+      strategy_canonical: ${{ steps.init.outputs.strategy_canonical }}
+    steps:
+      - id: init
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sha = context.payload.pull_request?.head?.sha || context.sha;
+            const isMasterPush = context.ref === 'refs/heads/master' && context.eventName === 'push';
+
+            const canonical = isMasterPush ? `date=${new Date().toISOString()}` : `commit=${sha}`;
+
+            core.setOutput('strategy_canonical', canonical);
+            core.setOutput('strategy', isMasterPush ? `latest,${canonical}` : canonical);
+
   data-review:
+    needs: strategy
     uses: linz/topographic-system/.github/workflows/data-review.yml@master
     with:
       runs_on: ubuntu-latest_8core
       environment: nonprod
       changed_datasets_only: false
       output: s3://linz-topography-nonprod/
-      # `github.sha` is the ephemeral merge commit on pull requests, use the head commit instead
-      strategy: ${{ (github.ref == 'refs/heads/master' && github.event_name == 'push') && 'latest,date' || format('commit={0}', github.event.pull_request.head.sha || github.sha) }}
-      data: ${{ format('s3://linz-topography-scratch-nonprod/github-cache/commit/{0}-{1}/', github.event.pull_request.head.sha || github.sha, github.run_id) }}
+      strategy: ${{ needs.strategy.outputs.strategy }}
     secrets: inherit
 
   visual-diff:
-    needs: data-review
-    uses: linz/topographic-system/.github/workflows/visual-diff.yml@master
+    needs: [strategy, data-review]
+    uses: linz/topographic-system/.github/workflows/visual-diff.yml@feat/filter-catalog-gitsha
     with:
       environment: nonprod
-      map_version: latest
+      map_version: git-77ae96d1669e21981229fea5ed5ddd8195fb51be
       project: https://d1jzh93b1t1cv.cloudfront.net/qgis/nztopo50/latest/nztopo50.json
+      strategy: ${{ needs.strategy.outputs.strategy_canonical }}
     secrets: inherit
