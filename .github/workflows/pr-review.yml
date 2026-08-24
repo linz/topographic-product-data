@@ -7,10 +7,12 @@ on:
 
 jobs:
   data-review:
-    uses: linz/topographic-system/.github/workflows/data-review.yml@master
+    # DEMO ONLY, do not merge: pinned to topographic-system#370 BM-1861.
+    uses: linz/topographic-system/.github/workflows/data-review.yml@fix/geojson-diff-crs-BM-1861
     with:
       runs_on: ubuntu-latest_8core
       environment: nonprod
+      kart_version: pr-370
       changed_datasets_only: false
       output: s3://linz-topography-nonprod/
       # `github.sha` is the ephemeral merge commit on pull requests, use the head commit instead
