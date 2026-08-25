@@ -7,7 +7,7 @@ on:
 
 jobs:
   data-review:
-    # DEMO ONLY, do not merge: pinned to topographic-system#370 BM-1861.
+    # DEMO ONLY, do not merge
     uses: linz/topographic-system/.github/workflows/data-review.yml@fix/geojson-diff-crs-BM-1861
     with:
       runs_on: ubuntu-latest_8core
